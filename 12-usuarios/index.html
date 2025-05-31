@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de Pruebas - Sistema Q-Flow</title>
+    <title>Resultados de Pruebas - Sistema Q-Flow - 12 Usuarios</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         body {
@@ -671,60 +671,6 @@
                     datasets: [
                         {
                             label: 'CPU',
-                            data: server1Data.cpu,
-                            borderColor: '#f9ca24',
-                            backgroundColor: 'rgba(249, 202, 36, 0.1)',
-                            tension: 0.4,
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'Memoria',
-                            data: server1Data.memory,
-                            borderColor: '#ff6b6b',
-                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                            tension: 0.4,
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: commonOptions
-            });
-
-            // Gráfico CPU y Memoria Server 2
-            new Chart(document.getElementById('server2CpuMemChart'), {
-                type: 'line',
-                data: {
-                    labels: timeLabels,
-                    datasets: [
-                        {
-                            label: 'CPU',
-                            data: server2Data.cpu,
-                            borderColor: '#f9ca24',
-                            backgroundColor: 'rgba(249, 202, 36, 0.1)',
-                            tension: 0.4,
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'Memoria',
-                            data: server2Data.memory,
-                            borderColor: '#ff6b6b',
-                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                            tension: 0.4,
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: commonOptions
-            });
-
-            // Gráfico CPU y Memoria SQL Server
-            new Chart(document.getElementById('sqlServerCpuMemChart'), {
-                type: 'line',
-                data: {
-                    labels: timeLabels,
-                    datasets: [
-                        {
-                            label: 'CPU',
                             data: sqlServerData.cpu,
                             borderColor: '#f9ca24',
                             backgroundColor: 'rgba(249, 202, 36, 0.1)',
@@ -828,3 +774,57 @@
     </script>
 </body>
 </html>
+                            data: server1Data.cpu,
+                            borderColor: '#f9ca24',
+                            backgroundColor: 'rgba(249, 202, 36, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Memoria',
+                            data: server1Data.memory,
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: commonOptions
+            });
+
+            // Gráfico CPU y Memoria Server 2
+            new Chart(document.getElementById('server2CpuMemChart'), {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [
+                        {
+                            label: 'CPU',
+                            data: server2Data.cpu,
+                            borderColor: '#f9ca24',
+                            backgroundColor: 'rgba(249, 202, 36, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Memoria',
+                            data: server2Data.memory,
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            tension: 0.4,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: commonOptions
+            });
+
+            // Gráfico CPU y Memoria SQL Server
+            new Chart(document.getElementById('sqlServerCpuMemChart'), {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [
+                        {
+                            label: 'CPU',
