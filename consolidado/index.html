@@ -6,268 +6,76 @@
     <title>Informe Consolidado - Análisis de Capacidad Sistema Q-Flow</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
-        body {
-            font-family: 'Aptos', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.4;
-            margin: 0;
-            padding: 10px;
-            background-color: #f5f5f5;
-            font-size: 12px;
-        }
+        body{font-family:'Aptos','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.4;margin:0;padding:10px;background-color:#f5f5f5;font-size:12px}
+        .container{max-width:1600px;margin:0 auto;background:white;padding:20px;border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,0.1)}
+        h1{color:#2c3e50;text-align:center;border-bottom:3px solid #3498db;padding-bottom:10px;margin-bottom:20px;font-size:24px}
+        h2{color:#34495e;margin-top:25px;margin-bottom:15px;border-left:4px solid #3498db;padding-left:15px;font-size:18px}
+        h3{color:#34495e;margin-top:20px;margin-bottom:10px;font-size:14px}
+        .document-info{background:#f8f9fa;padding:15px;border-radius:6px;margin-bottom:20px;border-left:4px solid #1a237e}
+        .document-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;font-size:12px;color:#666}
+        .executive-summary{background:linear-gradient(135deg,#2c3e50 0%,#34495e 100%);color:white;padding:20px;border-radius:8px;margin-bottom:25px}
+        .executive-summary h2{margin-top:0;color:white;border:none;padding:0;font-size:20px}
+        .key-findings{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:15px 0}
+        .finding-card{background:rgba(255,255,255,0.1);padding:15px;border-radius:6px;text-align:center}
+        .finding-value{font-size:2em;font-weight:bold;margin-bottom:5px;color:#3498db}
+        .finding-label{font-size:0.9em;opacity:0.9}
+        .results-table{width:100%;border-collapse:collapse;margin:15px 0;font-size:11px}
+        .results-table th,.results-table td{border:1px solid #ddd;padding:8px 6px;text-align:center}
+        .results-table th{background:linear-gradient(135deg,#3498db,#2980b9);color:white;font-weight:bold}
+        .results-table tr:nth-child(even){background-color:#f9f9f9}
+        .results-table tr:hover{background-color:#e3f2fd}
+        .pass{background-color:#2ecc71;color:white;padding:4px 8px;border-radius:12px;font-weight:bold;font-size:10px}
+        .fail{background-color:#e74c3c;color:white;padding:4px 8px;border-radius:12px;font-weight:bold;font-size:10px}
+        .chart-container-two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+        .chart-container-four{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:20px 0}
+        .chart-box{background:white;padding:15px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);height:300px}
+        .chart-box.large{height:400px}
+        .chart-box canvas{max-height:250px!important;max-width:100%!important}
+        .chart-box.large canvas{max-height:350px!important}
+        .chart-title{text-align:center;color:#2c3e50;margin-bottom:15px;font-weight:bold;font-size:14px}
+        .analysis-section{background:#ecf0f1;padding:20px;border-radius:8px;margin:20px 0;font-size:12px}
+        .critical-warning{background:#ffebee;border:2px solid #e74c3c;padding:15px;border-radius:8px;margin:20px 0;font-size:12px}
+        .success-highlight{background:#e8f5e8;border:2px solid #2ecc71;padding:15px;border-radius:8px;margin:20px 0;font-size:12px}
+        .recommendations{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:20px 0;font-size:12px}
+        .phase-indicator{display:inline-block;padding:4px 12px;border-radius:15px;font-weight:bold;font-size:10px;margin-right:8px}
+        .phase-optimal{background:#2ecc71;color:white}
+        .phase-warning{background:#f39c12;color:white}
+        .phase-critical{background:#e74c3c;color:white}
         
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        
-        h2 {
-            color: #34495e;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            border-left: 4px solid #3498db;
-            padding-left: 15px;
-            font-size: 18px;
-        }
-        
-        h3 {
-            color: #34495e;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        
-        .executive-summary {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        
-        .executive-summary h2 {
-            margin-top: 0;
-            color: white;
-            border: none;
-            padding: 0;
-            font-size: 20px;
-        }
-        
-        .key-findings {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .finding-card {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        
-        .finding-value {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #3498db;
-        }
-        
-        .finding-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-        
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 11px;
-        }
-        
-        .results-table th,
-        .results-table td {
-            border: 1px solid #ddd;
-            padding: 8px 6px;
-            text-align: center;
-        }
-        
-        .results-table th {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            font-weight: bold;
-        }
-        
-        .results-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .results-table tr:hover {
-            background-color: #e3f2fd;
-        }
-        
-        .pass {
-            background-color: #2ecc71;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 10px;
-        }
-        
-        .fail {
-            background-color: #e74c3c;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 10px;
-        }
-        
-        .chart-container-two {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .chart-container-four {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .chart-box {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            height: 300px;
-        }
-        
-        .chart-box.large {
-            height: 400px;
-        }
-        
-        .chart-box canvas {
-            max-height: 250px !important;
-            max-width: 100% !important;
-        }
-        
-        .chart-box.large canvas {
-            max-height: 350px !important;
-        }
-        
-        .chart-title {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .analysis-section {
-            background: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 12px;
-        }
-        
-        .critical-warning {
-            background: #ffebee;
-            border: 2px solid #e74c3c;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 12px;
-        }
-        
-        .success-highlight {
-            background: #e8f5e8;
-            border: 2px solid #2ecc71;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 12px;
-        }
-        
-        .recommendations {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 12px;
-        }
-        
-        .phase-indicator {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 10px;
-            margin-right: 8px;
-        }
-        
-        .phase-optimal {
-            background: #2ecc71;
-            color: white;
-        }
-        
-        .phase-warning {
-            background: #f39c12;
-            color: white;
-        }
-        
-        .phase-critical {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        /* Estilos específicos para impresión */
-        @media print {
-            body {
-                background: white !important;
-                font-size: 10px !important;
-            }
-            
-            .container {
-                box-shadow: none !important;
-                max-width: 100% !important;
-                padding: 10px !important;
-            }
-            
-            .chart-box {
-                height: 250px !important;
-                page-break-inside: avoid;
-            }
-        }
+        /* Botón de navegación */
+        .nav-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0;border-bottom:1px solid #e0e0e0}
+        .back-btn{background:linear-gradient(135deg,#3498db,#2980b9);color:white;padding:8px 16px;border:none;border-radius:6px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;text-decoration:none;transition:all 0.3s ease}
+        .back-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(52,152,219,0.3);text-decoration:none;color:white}
+        .back-btn:active{transform:translateY(0)}
+        .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA</h1>
-        <p style="text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 25px;">
-            Evaluación Completa de Rendimiento: 12 a 60 Usuarios Concurrentes
-        </p>
+        <!-- Header de navegación -->
+        <div class="nav-header">
+            <button class="back-btn" onclick="goBack()">
+                <span>←</span>
+                <span>Regresar</span>
+            </button>
+            <div class="page-title">Análisis Consolidado - Todos los Reportes</div>
+        </div>
+
+        <div class="document-info">
+            <div class="document-info-grid">
+                <div><strong>Fecha de Elaboración:</strong> 30 de Mayo, 2025</div>
+                <div><strong>Entorno:</strong> QA-DESA</div>
+                <div><strong>Cliente:</strong> BBVA Mex</div>
+                <div><strong>Modalidad:</strong> Script Info Page Activo</div>
+            </div>
+        </div>
+
+        <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA-DESA</h1>
+        <p style="text-align:center;color:#7f8c8d;font-style:italic;margin-bottom:25px">Evaluación Completa de Rendimiento: 12 a 60 Usuarios Concurrentes<br><strong>Script Info Page(1) Activo</strong></p>
 
         <div class="executive-summary">
             <h2>📊 Resumen Ejecutivo</h2>
-            <p><strong>Objetivo:</strong> Determinar la capacidad máxima del servidor QA para el sistema Q-Flow bajo diferentes niveles de concurrencia de usuarios.</p>
+            <p><strong>Objetivo:</strong> Determinar la capacidad máxima del servidor QA-DESA para el sistema Q-Flow bajo diferentes niveles de concurrencia de usuarios.</p>
             
             <div class="key-findings">
                 <div class="finding-card">
@@ -289,90 +97,24 @@
         <table class="results-table">
             <thead>
                 <tr>
-                    <th>Prueba</th>
-                    <th>Usuarios</th>
-                    <th>Fase</th>
-                    <th>Muestras</th>
-                    <th>Errores</th>
-                    <th>% Error</th>
-                    <th>Tiempo Prom (ms)</th>
-                    <th>Max (ms)</th>
-                    <th>TPS</th>
-                    <th>Estado</th>
+                    <th>Prueba</th><th>Usuarios</th><th>Fase</th><th>Muestras</th><th>Errores</th><th>% Error</th><th>Tiempo Prom (ms)</th><th>Max (ms)</th><th>TPS</th><th>Estado</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Console001</strong></td>
-                    <td>12</td>
-                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
-                    <td>3,600</td>
-                    <td>0</td>
-                    <td>0.00%</td>
-                    <td>311</td>
-                    <td>855</td>
-                    <td>14.6</td>
-                    <td><span class="pass">PASS</span></td>
+                    <td><strong>Console001</strong></td><td>12</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>3,600</td><td>0</td><td>0.00%</td><td>311</td><td>855</td><td>14.6</td><td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console002</strong></td>
-                    <td>24</td>
-                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
-                    <td>7,200</td>
-                    <td>0</td>
-                    <td>0.00%</td>
-                    <td>331</td>
-                    <td>872</td>
-                    <td>28.2</td>
-                    <td><span class="pass">PASS</span></td>
+                    <td><strong>Console002</strong></td><td>24</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>7,200</td><td>0</td><td>0.00%</td><td>331</td><td>872</td><td>28.2</td><td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console003</strong></td>
-                    <td>36</td>
-                    <td><span class="phase-indicator phase-warning">ADVERTENCIA</span></td>
-                    <td>10,800</td>
-                    <td>92</td>
-                    <td>0.85%</td>
-                    <td>412</td>
-                    <td>7,904</td>
-                    <td>38.8</td>
-                    <td><span class="pass">PASS</span></td>
+                    <td><strong>Console003</strong></td><td>36</td><td><span class="phase-indicator phase-warning">ADVERTENCIA</span></td><td>10,800</td><td>92</td><td>0.85%</td><td>412</td><td>7,904</td><td>38.8</td><td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console004</strong></td>
-                    <td>48</td>
-                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
-                    <td>14,990</td>
-                    <td>87</td>
-                    <td>0.58%</td>
-                    <td>379</td>
-                    <td>6,635</td>
-                    <td>55.2</td>
-                    <td><span class="pass">PASS</span></td>
+                    <td><strong>Console005</strong></td><td>48</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>14,990</td><td>87</td><td>0.60%</td><td>379</td><td>6,635</td><td>55.2</td><td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console005</strong></td>
-                    <td>48</td>
-                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
-                    <td>14,990</td>
-                    <td>87</td>
-                    <td>0.60%</td>
-                    <td>379</td>
-                    <td>6,635</td>
-                    <td>55.2</td>
-                    <td><span class="pass">PASS</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Console006</strong></td>
-                    <td>60</td>
-                    <td><span class="phase-indicator phase-critical">CRÍTICA</span></td>
-                    <td>18,736</td>
-                    <td>2,862</td>
-                    <td>15.29%</td>
-                    <td>994</td>
-                    <td>20,463</td>
-                    <td>39.8</td>
-                    <td><span class="fail">FAIL</span></td>
+                    <td><strong>Console006</strong></td><td>60</td><td><span class="phase-indicator phase-critical">CRÍTICA</span></td><td>18,736</td><td>2,862</td><td>15.29%</td><td>994</td><td>20,463</td><td>39.8</td><td><span class="fail">FAIL</span></td>
                 </tr>
             </tbody>
         </table>
@@ -453,20 +195,9 @@
             </ul>
         </div>
 
-        <div class="analysis-section">
-            <h3>📋 Observaciones Técnicas Clave</h3>
-            <ul>
-                <li><strong>Cuello de Botella Principal:</strong> SQL Server es el limitante crítico del sistema</li>
-                <li><strong>Balanceador Eficiente:</strong> Los servidores IIS muestran distribución equilibrada</li>
-                <li><strong>Punto de Inflexión:</strong> Entre 48 y 60 usuarios existe un punto de quiebre dramático</li>
-                <li><strong>Consistencia Validada:</strong> Pruebas 004 y 005 confirman repetibilidad a 48 usuarios</li>
-                <li><strong>Capacidad del Software:</strong> Q-Flow como sistema es robusto; limitación es infraestructura QA</li>
-            </ul>
-        </div>
-
         <div class="recommendations">
             <h3>🎯 Recomendaciones Estratégicas</h3>
-            <h4>Para Entorno QA:</h4>
+            <h4>Para Entorno QA-DESA:</h4>
             <ul>
                 <li><strong>Límite Operacional:</strong> Máximo 48 usuarios concurrentes</li>
                 <li><strong>Margen de Seguridad:</strong> Recomendado 40-45 usuarios para operación estable</li>
@@ -479,279 +210,282 @@
                 <li><strong>Optimización de BD:</strong> Revisar índices y consultas de Q-Flow</li>
                 <li><strong>Arquitectura Distribuida:</strong> Considerar cluster SQL Server para mayor capacidad</li>
             </ul>
-            
-            <h4>Para Producción:</h4>
-            <ul>
-                <li><strong>Infraestructura Robusta:</strong> Dimensionar servidores para 2-3x la capacidad requerida</li>
-                <li><strong>Testing Continuo:</strong> Pruebas de carga regulares en entorno similar a QA</li>
-                <li><strong>Plan de Contingencia:</strong> Estrategias de mitigación cuando se acerque al límite</li>
-            </ul>
         </div>
 
         <div class="executive-summary">
             <h2>💡 Conclusiones Finales</h2>
-            <p><strong>El sistema Q-Flow demuestra excelente comportamiento hasta 48 usuarios concurrentes en la infraestructura QA actual.</strong> 
+            <p><strong>El sistema Q-Flow demuestra excelente comportamiento hasta 48 usuarios concurrentes en la infraestructura QA-DESA actual.</strong> 
             La degradación crítica a 60 usuarios marca claramente el límite del hardware, no del software. 
             Para mayor capacidad, se requiere escalamiento de infraestructura, especialmente del servidor SQL Server.</p>
             
-            <p style="margin-top: 15px;"><em>Este análisis establece una línea base sólida para la planificación de capacidad y 
-            decisiones de infraestructura futuras.</em></p>
+            <p style="margin-top:15px"><em>Este análisis establece una línea base sólida para la planificación de capacidad y decisiones de infraestructura futuras.</em></p>
         </div>
     </div>
 
-    <script>
-        // Datos consolidados de todas las pruebas
-        const testData = {
-            users: [12, 24, 36, 48, 48, 60],
-            throughput: [14.6, 28.2, 38.8, 55.2, 55.2, 39.8],
-            errorRate: [0.00, 0.00, 0.85, 0.58, 0.60, 15.29],
-            avgResponseTime: [311, 331, 412, 379, 379, 994],
-            maxResponseTime: [855, 872, 7904, 6635, 6635, 20463],
-            sqlCpu: [45, 65, 75, 85, 85, 95],
-            sqlMemory: [28, 38, 48, 52, 52, 78],
-            iisCpuAvg: [20, 35, 50, 38, 38, 42],
-            iisMemoryAvg: [15, 25, 32, 29, 29, 35]
-        };
+<script>
+window.addEventListener('load', function() {
+    if (typeof Chart === 'undefined') return;
 
-        // Configuración común para gráficos
-        const commonConfig = {
-            responsive: true,
-            maintainAspectRatio: true,
-            aspectRatio: 1.8,
+    const testData = {
+        users: [12, 24, 36, 48, 60],
+        throughput: [14.6, 28.2, 38.8, 55.2, 39.8],
+        errorRate: [0.00, 0.00, 0.85, 0.60, 15.29],
+        avgResponseTime: [311, 331, 412, 379, 994],
+        maxResponseTime: [855, 872, 7904, 6635, 20463],
+        sqlCpu: [45, 65, 75, 85, 95],
+        sqlMemory: [28, 38, 48, 52, 78],
+        iisCpuAvg: [20, 35, 50, 38, 42],
+        iisMemoryAvg: [15, 25, 32, 29, 35]
+    };
+
+    const commonConfig = {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.8,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Usuarios Concurrentes'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    };
+
+    new Chart(document.getElementById('throughputChart'), {
+        type: 'line',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.throughput,
+                borderColor: '#3498db',
+                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#3498db',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                tension: 0.3
+            }]
+        },
+        options: {
+            ...commonConfig,
             scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Usuarios Concurrentes'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        };
-
-        // Gráfico de Throughput
-        new Chart(document.getElementById('throughputChart'), {
-            type: 'line',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.throughput,
-                    borderColor: '#3498db',
-                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#3498db',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                ...commonConfig,
-                scales: {
-                    ...commonConfig.scales,
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Transacciones por Segundo (TPS)'
-                        }
-                    }
-                }
-            }
-        });
-
-        // Gráfico de Tasa de Errores
-        new Chart(document.getElementById('errorChart'), {
-            type: 'line',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.errorRate,
-                    borderColor: '#e74c3c',
-                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#e74c3c',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                ...commonConfig,
-                scales: {
-                    ...commonConfig.scales,
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Porcentaje de Errores (%)'
-                        }
-                    }
-                }
-            }
-        });
-
-        // Gráfico de Tiempo de Respuesta Promedio
-        new Chart(document.getElementById('responseTimeChart'), {
-            type: 'line',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.avgResponseTime,
-                    borderColor: '#f39c12',
-                    backgroundColor: 'rgba(243, 156, 18, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#f39c12',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                ...commonConfig,
-                scales: {
-                    ...commonConfig.scales,
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Tiempo de Respuesta (ms)'
-                        }
-                    }
-                }
-            }
-        });
-
-        // Gráfico de Tiempo de Respuesta Máximo
-        new Chart(document.getElementById('maxTimeChart'), {
-            type: 'line',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.maxResponseTime,
-                    borderColor: '#9b59b6',
-                    backgroundColor: 'rgba(155, 89, 182, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#9b59b6',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                ...commonConfig,
-                scales: {
-                    ...commonConfig.scales,
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Tiempo Máximo (ms)'
-                        }
-                    }
-                }
-            }
-        });
-
-        // Gráficos de recursos de hardware
-        const resourceConfig = {
-            responsive: true,
-            maintainAspectRatio: true,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Usuarios'
-                    }
-                },
+                ...commonConfig.scales,
                 y: {
                     beginAtZero: true,
-                    max: 100,
                     title: {
                         display: true,
-                        text: 'Uso (%)'
+                        text: 'Transacciones por Segundo (TPS)'
                     }
                 }
-            },
-            plugins: {
-                legend: {
-                    display: false
+            }
+        }
+    });
+
+    new Chart(document.getElementById('errorChart'), {
+        type: 'line',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.errorRate,
+                borderColor: '#e74c3c',
+                backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#e74c3c',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                tension: 0.3
+            }]
+        },
+        options: {
+            ...commonConfig,
+            scales: {
+                ...commonConfig.scales,
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Porcentaje de Errores (%)'
+                    }
                 }
             }
-        };
+        }
+    });
 
-        // SQL Server CPU
-        new Chart(document.getElementById('sqlCpuChart'), {
-            type: 'bar',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.sqlCpu,
-                    backgroundColor: [
-                        '#2ecc71', '#f39c12', '#e67e22', '#e74c3c', '#e74c3c', '#c0392b'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: resourceConfig
-        });
+    new Chart(document.getElementById('responseTimeChart'), {
+        type: 'line',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.avgResponseTime,
+                borderColor: '#f39c12',
+                backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#f39c12',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                tension: 0.3
+            }]
+        },
+        options: {
+            ...commonConfig,
+            scales: {
+                ...commonConfig.scales,
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tiempo de Respuesta (ms)'
+                    }
+                }
+            }
+        }
+    });
 
-        // SQL Server Memoria
-        new Chart(document.getElementById('sqlMemoryChart'), {
-            type: 'bar',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.sqlMemory,
-                    backgroundColor: [
-                        '#3498db', '#5dade2', '#85c1e9', '#a9cce3', '#a9cce3', '#2874a6'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: resourceConfig
-        });
+    new Chart(document.getElementById('maxTimeChart'), {
+        type: 'line',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.maxResponseTime,
+                borderColor: '#9b59b6',
+                backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#9b59b6',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                tension: 0.3
+            }]
+        },
+        options: {
+            ...commonConfig,
+            scales: {
+                ...commonConfig.scales,
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tiempo Máximo (ms)'
+                    }
+                }
+            }
+        }
+    });
 
-        // IIS CPU Promedio
-        new Chart(document.getElementById('iisCpuChart'), {
-            type: 'bar',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.iisCpuAvg,
-                    backgroundColor: [
-                        '#27ae60', '#58d68d', '#82e0aa', '#a9dfbf', '#a9dfbf', '#1e8449'
-                    ],
-                    borderWidth: 1
-                }]
+    const resourceConfig = {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Usuarios'
+                }
             },
-            options: resourceConfig
-        });
+            y: {
+                beginAtZero: true,
+                max: 100,
+                title: {
+                    display: true,
+                    text: 'Uso (%)'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    };
 
-        // IIS Memoria Promedio
-        new Chart(document.getElementById('iisMemoryChart'), {
-            type: 'bar',
-            data: {
-                labels: testData.users,
-                datasets: [{
-                    data: testData.iisMemoryAvg,
-                    backgroundColor: [
-                        '#8e44ad', '#a569bd', '#bb8fce', '#d2b4de', '#d2b4de', '#6c3483'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: resourceConfig
-        });
-    </script>
+    new Chart(document.getElementById('sqlCpuChart'), {
+        type: 'bar',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.sqlCpu,
+                backgroundColor: [
+                    '#2ecc71', '#f39c12', '#e67e22', '#e74c3c', '#c0392b'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: resourceConfig
+    });
+
+    new Chart(document.getElementById('sqlMemoryChart'), {
+        type: 'bar',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.sqlMemory,
+                backgroundColor: [
+                    '#3498db', '#5dade2', '#85c1e9', '#a9cce3', '#2874a6'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: resourceConfig
+    });
+
+    new Chart(document.getElementById('iisCpuChart'), {
+        type: 'bar',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.iisCpuAvg,
+                backgroundColor: [
+                    '#27ae60', '#58d68d', '#82e0aa', '#a9dfbf', '#1e8449'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: resourceConfig
+    });
+
+    new Chart(document.getElementById('iisMemoryChart'), {
+        type: 'bar',
+        data: {
+            labels: testData.users,
+            datasets: [{
+                data: testData.iisMemoryAvg,
+                backgroundColor: [
+                    '#8e44ad', '#a569bd', '#bb8fce', '#d2b4de', '#6c3483'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: resourceConfig
+    });
+
+    console.log('📊 Gráficos consolidados cargados!');
+});
+
+// Función de navegación para SharePoint
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = '../index.html';
+    }
+}
+
+// También funciona con tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        goBack();
+    }
+});
+</script>
 </body>
 </html>
