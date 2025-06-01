@@ -44,10 +44,25 @@
         .legend{display:flex;justify-content:center;gap:15px;margin:10px 0;flex-wrap:wrap}
         .legend-item{display:flex;align-items:center;gap:5px;font-size:10px}
         .legend-color{width:15px;height:15px;border-radius:2px}
+        
+        /* Botón de navegación */
+        .nav-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0;border-bottom:1px solid #e0e0e0}
+        .back-btn{background:linear-gradient(135deg,#3498db,#2980b9);color:white;padding:8px 16px;border:none;border-radius:6px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;text-decoration:none;transition:all 0.3s ease}
+        .back-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(52,152,219,0.3);text-decoration:none;color:white}
+        .back-btn:active{transform:translateY(0)}
+        .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header de navegación -->
+        <div class="nav-header">
+            <button class="back-btn" onclick="goBack()">
+                <span>←</span>
+                <span>Regresar</span>
+            </button>
+            <div class="page-title">Reporte de Performance - 24 Usuarios Concurrentes</div>
+        </div>
         <div class="document-info">
             <div class="document-info-grid">
                 <div><strong>Fecha de Elaboración:</strong> 30 de Mayo, 2025</div>
@@ -221,6 +236,22 @@ window.addEventListener('load', function() {
     cc('sqldisk', {type: 'line', data: {labels: t, datasets: [{label: 'Disco C: (S.O.)', data: sql.dc, borderColor: '#4ecdc4', backgroundColor: 'rgba(78, 205, 196, 0.1)', tension: 0.4, borderWidth: 2}, {label: 'Disco G: (Q-Flow Data)', data: sql.dg, borderColor: '#27ae60', backgroundColor: 'rgba(39, 174, 96, 0.1)', tension: 0.4, borderWidth: 2}]}, options: opt});
     
     console.log('✅ Gráficos 24 usuarios cargados!');
+});
+
+// Función de navegación para SharePoint
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = '../index.html';
+    }
+}
+
+// También funciona con tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        goBack();
+    }
 });
 </script>
 </body>
