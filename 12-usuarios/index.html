@@ -52,21 +52,23 @@
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
         
-        /* Header completo para PDF */
+        /* Header completo GIGANTE para PDF */
         .pdf-header-full {
             display: none;
             width: 100%;
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 3px solid #1a237e;
+            background: #f8f9fa;
         }
         
         .pdf-header-full img {
-            width: 80%;
-            max-width: 800px;
+            width: 90%;
+            max-width: 1000px;
             height: auto;
-            max-height: 100px;
+            min-height: 120px;
+            max-height: 150px;
             object-fit: contain;
             background: transparent;
         }
@@ -74,8 +76,8 @@
         /* Estilos para impresión/PDF */
         @media print {
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
-            .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important}
             .chart-box{height:180px!important;page-break-inside:avoid!important}
             .chart-box canvas{max-height:130px!important}
             .results-table{page-break-inside:avoid!important}
@@ -85,12 +87,12 @@
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
             
-            /* Mostrar header completo para PDF */
+            /* Mostrar header GIGANTE para PDF */
             .pdf-header-full{display:block!important}
             
             /* Ocultar URLs del navegador */
             @page {
-                margin: 0.5in;
+                margin: 0.4in;
             }
             
             /* Ocultar elementos específicos del navegador */
@@ -107,7 +109,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header completo ACF Technologies (solo PDF) -->
+        <!-- Header completo ACF Technologies ARRIBA DE TODO -->
         <div class="pdf-header-full">
             <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
                  alt="ACF Technologies - Product Quality Assurance">
