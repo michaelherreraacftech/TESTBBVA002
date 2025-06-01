@@ -65,6 +65,27 @@
             h1,h2{page-break-after:avoid!important}
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
+            
+            /* Ocultar URLs del navegador */
+            @page {
+                margin: 0.5in;
+            }
+            
+            /* Ocultar elementos específicos del navegador */
+            header, nav, .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* Clase para ocultar en impresión */
+        .no-print {
+            display: block;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -279,15 +300,41 @@ function downloadPDF() {
     const originalTitle = document.title;
     document.title = 'Reporte_BBVA_12_Usuarios_' + new Date().toISOString().split('T')[0];
     
+    // Ocultar elementos que no queremos en el PDF
+    const elementsToHide = document.querySelectorAll('.nav-header, header, nav');
+    elementsToHide.forEach(el => el.style.display = 'none');
+    
     // Configurar para impresión óptima
-    const originalFontSize = document.body.style.fontSize;
-    const originalBackground = document.body.style.background;
+    const originalStyles = {
+        fontSize: document.body.style.fontSize,
+        background: document.body.style.background,
+        margin: document.body.style.margin,
+        padding: document.body.style.padding
+    };
     
     // Optimizar estilos para PDF
     document.body.style.fontSize = '9px';
     document.body.style.background = 'white';
     document.body.style.margin = '0';
     document.body.style.padding = '0';
+    
+    // Agregar configuración de página para ocultar URLs
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @media print {
+            @page { 
+                margin: 0.5in; 
+                size: A4;
+            }
+            .nav-header, header, nav { 
+                display: none !important; 
+            }
+            body { 
+                -webkit-print-color-adjust: exact; 
+            }
+        }
+    `;
+    document.head.appendChild(style);
     
     // Dar un momento para que se apliquen los estilos
     setTimeout(() => {
@@ -296,8 +343,16 @@ function downloadPDF() {
         // Restaurar estilos originales después de imprimir
         setTimeout(() => {
             document.title = originalTitle;
-            document.body.style.fontSize = originalFontSize;
-            document.body.style.background = originalBackground;
+            document.body.style.fontSize = originalStyles.fontSize;
+            document.body.style.background = originalStyles.background;
+            document.body.style.margin = originalStyles.margin;
+            document.body.style.padding = originalStyles.padding;
+            
+            // Mostrar elementos ocultos
+            elementsToHide.forEach(el => el.style.display = '');
+            
+            // Remover el estilo agregado
+            document.head.removeChild(style);
         }, 1000);
     }, 100);
 }
