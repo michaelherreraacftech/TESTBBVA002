@@ -52,18 +52,20 @@
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
         
-        /* Logo pequeño en esquina superior izquierda */
+        /* Logo grande en esquina superior izquierda */
         .pdf-logo {
             display: none;
             position: absolute;
             top: 15px;
             left: 15px;
+            right: 15px;
             z-index: 1000;
+            width: 80%;
         }
         
         .pdf-logo img {
-            max-width: 300px;
-            max-height: 50px;
+            width: 100%;
+            max-height: 80px;
             object-fit: contain;
             background: transparent;
             border-radius: 4px;
@@ -72,7 +74,7 @@
         /* Estilos para impresión/PDF */
         @media print {
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important;padding-top:80px!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important;padding-top:110px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important;position:relative}
             .chart-box{height:180px!important;page-break-inside:avoid!important}
             .chart-box canvas{max-height:130px!important}
@@ -83,7 +85,7 @@
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
             
-            /* Mostrar solo logo de imagen para PDF */
+            /* Mostrar logo grande para PDF */
             .pdf-logo{display:block!important}
             
             /* Ocultar URLs del navegador */
