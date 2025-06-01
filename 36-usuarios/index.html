@@ -51,24 +51,120 @@
         .back-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(52,152,219,0.3);text-decoration:none;color:white}
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
+
+        /* Header SIMPLE y COMPACTO para PDF */
+        .pdf-header-full {
+            display: none;
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 0;
+            border-bottom: 3px solid #1a237e;
+            background: white;
+        }
+        
+        .pdf-header-full img {
+            width: 90%;
+            max-width: 1000px;
+            height: auto;
+            min-height: 120px;
+            max-height: 150px;
+            object-fit: contain;
+            background: white;
+            margin: 10px auto 15px auto;
+            display: block;
+        }
+
+        /* Clase para ocultar en impresión */
+        .no-print {
+            display: block;
+        }
+
+        /* Estilos para impresión/PDF */
+        @media print {
+            .nav-header{display:none!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important;background:white!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:130px!important}
+            .results-table{page-break-inside:avoid!important}
+            .architecture-info{page-break-inside:avoid!important}
+            .metrics-grid{page-break-inside:avoid!important}
+            h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
+            .chart-container-three{page-break-inside:avoid!important}
+            .analysis-section{page-break-inside:avoid!important}
+            
+            /* CONTROL ESPECÍFICO de saltos de página */
+            .hardware-section{page-break-inside:avoid!important}
+            .cpu-memory-section{page-break-inside:avoid!important}
+            .disk-section{page-break-inside:avoid!important}
+            .cpu-memory-section h3{page-break-after:avoid!important}
+            .disk-section h3{page-break-after:avoid!important}
+            
+            /* Mostrar header LIMPIO para PDF */
+            .pdf-header-full{display:block!important}
+            
+            /* SOLO cambiar fondo problemático específico */
+            .document-info{background:#f8f9fa!important}
+            
+            /* Asegurar print colors */
+            body { 
+                -webkit-print-color-adjust: exact !important; 
+                color-adjust: exact !important;
+            }
+            
+            /* FORZAR color verde del badge PASS */
+            .result-badge {
+                background: #2ecc71 !important;
+                color: white !important;
+            }
+            
+            .pass {
+                background-color: #2ecc71 !important;
+                color: white !important;
+            }
+            
+            /* Ocultar URLs del navegador */
+            @page {
+                margin: 0.4in;
+            }
+            
+            /* Ocultar elementos específicos del navegador */
+            header, nav, .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header de navegación -->
+        <!-- Header completo ACF Technologies ARRIBA DE TODO -->
+        <div class="pdf-header-full">
+            <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
+                 alt="ACF Technologies - Product Quality Assurance">
+        </div>
+
+        <!-- Header de navegación (solo web) -->
         <div class="nav-header">
             <button class="back-btn" onclick="goBack()">
                 <span>←</span>
                 <span>Regresar</span>
             </button>
             <div class="page-title">Reporte de Performance - 36 Usuarios Concurrentes</div>
+            <button class="back-btn" onclick="downloadPDF()" style="background:linear-gradient(135deg,#e74c3c,#c0392b)">
+                <span>📄</span>
+                <span>Descargar PDF</span>
+            </button>
         </div>
+
         <div class="document-info">
             <div class="document-info-grid">
                 <div><strong>Fecha de Elaboración:</strong> 30 de Mayo, 2025</div>
                 <div><strong>Entorno:</strong> QA-DESA</div>
                 <div><strong>Cliente:</strong> BBVA Mex</div>
                 <div><strong>Modalidad:</strong> Script Info Page Activo</div>
+                <div><strong>Analista Responsable:</strong> Michael J Herrera B</div>
+                <div><strong>Cargo:</strong> Líder de Aseguramiento de Calidad</div>
             </div>
         </div>
 
@@ -161,26 +257,32 @@
         </div>
 
         <h2>Rendimiento de Hardware</h2>
-        <div class="legend">
-            <div class="legend-item"><div class="legend-color" style="background-color:#ff6b6b"></div><span>Memoria</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#f9ca24"></div><span>CPU</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#4ecdc4"></div><span>Disco C: (S.O.)</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#9b59b6"></div><span>Disco N: (Web/IIS)</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#27ae60"></div><span>Disco G: (Q-Flow Data)</span></div>
-        </div>
+        <div class="hardware-section" style="page-break-inside: avoid;">
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background-color:#ff6b6b"></div><span>Memoria</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#f9ca24"></div><span>CPU</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#4ecdc4"></div><span>Disco C: (S.O.)</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#9b59b6"></div><span>Disco N: (Web/IIS)</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#27ae60"></div><span>Disco G: (Q-Flow Data)</span></div>
+            </div>
 
-        <h3>Uso de CPU y Memoria</h3>
-        <div class="chart-container-three">
-            <div class="chart-box"><div class="chart-title">IIS Server 1 - CPU y Memoria</div><canvas id="s1cpu"></canvas></div>
-            <div class="chart-box"><div class="chart-title">IIS Server 2 - CPU y Memoria</div><canvas id="s2cpu"></canvas></div>
-            <div class="chart-box"><div class="chart-title">SQL Server - CPU y Memoria</div><canvas id="sqlcpu"></canvas></div>
-        </div>
+            <div class="cpu-memory-section" style="page-break-inside: avoid;">
+                <h3>Uso de CPU y Memoria</h3>
+                <div class="chart-container-three">
+                    <div class="chart-box"><div class="chart-title">IIS Server 1 - CPU y Memoria</div><canvas id="s1cpu"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">IIS Server 2 - CPU y Memoria</div><canvas id="s2cpu"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">SQL Server - CPU y Memoria</div><canvas id="sqlcpu"></canvas></div>
+                </div>
+            </div>
 
-        <h3>Uso de Discos (I/O)</h3>
-        <div class="chart-container-three">
-            <div class="chart-box"><div class="chart-title">IIS Server 1 - Discos C: y N:</div><canvas id="s1disk"></canvas></div>
-            <div class="chart-box"><div class="chart-title">IIS Server 2 - Discos C: y N:</div><canvas id="s2disk"></canvas></div>
-            <div class="chart-box"><div class="chart-title">SQL Server - Discos C: y G:</div><canvas id="sqldisk"></canvas></div>
+            <div class="disk-section" style="page-break-inside: avoid;">
+                <h3>Uso de Discos (I/O)</h3>
+                <div class="chart-container-three">
+                    <div class="chart-box"><div class="chart-title">IIS Server 1 - Discos C: y N:</div><canvas id="s1disk"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">IIS Server 2 - Discos C: y N:</div><canvas id="s2disk"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">SQL Server - Discos C: y G:</div><canvas id="sqldisk"></canvas></div>
+                </div>
+            </div>
         </div>
 
         <h2>Análisis de Rendimiento</h2>
@@ -243,6 +345,7 @@ function goBack() {
     if (window.history.length > 1) {
         window.history.back();
     } else {
+        // Regresa al index.html principal
         window.location.href = '../index.html';
     }
 }
@@ -253,6 +356,68 @@ document.addEventListener('keydown', function(event) {
         goBack();
     }
 });
+
+// Función para descargar como PDF
+function downloadPDF() {
+    const originalTitle = document.title;
+    document.title = 'Reporte_BBVA_36_Usuarios_' + new Date().toISOString().split('T')[0];
+    
+    // Ocultar elementos que no queremos en el PDF
+    const elementsToHide = document.querySelectorAll('.nav-header, header, nav');
+    elementsToHide.forEach(el => el.style.display = 'none');
+    
+    // Configurar para impresión óptima
+    const originalStyles = {
+        fontSize: document.body.style.fontSize,
+        background: document.body.style.background,
+        margin: document.body.style.margin,
+        padding: document.body.style.padding
+    };
+    
+    // Optimizar estilos para PDF
+    document.body.style.fontSize = '9px';
+    document.body.style.background = 'white';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    
+    // Agregar configuración de página para ocultar URLs
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @media print {
+            @page { 
+                margin: 0.5in; 
+                size: A4;
+            }
+            .nav-header, header, nav { 
+                display: none !important; 
+            }
+            body { 
+                -webkit-print-color-adjust: exact; 
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Dar un momento para que se apliquen los estilos
+    setTimeout(() => {
+        window.print();
+        
+        // Restaurar estilos originales después de imprimir
+        setTimeout(() => {
+            document.title = originalTitle;
+            document.body.style.fontSize = originalStyles.fontSize;
+            document.body.style.background = originalStyles.background;
+            document.body.style.margin = originalStyles.margin;
+            document.body.style.padding = originalStyles.padding;
+            
+            // Mostrar elementos ocultos
+            elementsToHide.forEach(el => el.style.display = '');
+            
+            // Remover el estilo agregado
+            document.head.removeChild(style);
+        }, 1000);
+    }, 100);
+}
 </script>
 </body>
 </html>
