@@ -90,8 +90,24 @@
             .architecture-info{page-break-inside:avoid!important}
             .metrics-grid{page-break-inside:avoid!important}
             h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
+            
+            /* EVITAR separar títulos de contenido */
+            h3 + .chart-container-three{page-break-before:avoid!important}
+            h2 + .legend{page-break-before:avoid!important}
+            .legend{page-break-after:avoid!important}
+            .legend + h3{page-break-before:avoid!important}
+            
+            /* Mantener secciones juntas */
+            h2:contains("Rendimiento de Hardware"), 
+            .legend, 
+            h3:contains("Uso de CPU"), 
+            .chart-container-three:first-of-type {
+                page-break-inside: avoid !important;
+                page-break-before: avoid !important;
+            }
             
             /* Mostrar header LIMPIO para PDF */
             .pdf-header-full{display:block!important}
