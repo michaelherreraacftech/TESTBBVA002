@@ -97,9 +97,34 @@
             /* Mostrar header LIMPIO para PDF */
             .pdf-header-full{display:block!important}
             
-            /* FORZAR FONDOS BLANCOS */
-            * {
+            /* FORZAR SOLO FONDOS PROBLEMÁTICOS A BLANCO */
+            .container, .architecture-info, .document-info, body, .pdf-header-full {
                 background-color: white !important;
+            }
+            
+            /* PRESERVAR colores importantes */
+            .test-summary, .result-badge, .pass, .metric-card, .legend-color, 
+            .results-table th, .back-btn, .pie-chart-container {
+                background-color: initial !important;
+            }
+            
+            /* PRESERVAR colores de texto */
+            .test-summary, .test-summary h3, .test-summary p,
+            .result-badge, .pass, .results-table th {
+                color: initial !important;
+            }
+            
+            /* PRESERVAR gradientes */
+            .test-summary {
+                background: linear-gradient(135deg,#2c3e50 0%,#34495e 100%) !important;
+            }
+            
+            .results-table th {
+                background: linear-gradient(135deg,#3498db,#2980b9) !important;
+            }
+            
+            .metric-card {
+                background: linear-gradient(135deg,#a8e6cf 0%,#7fcdcd 100%) !important;
             }
             
             .pdf-header-full {
