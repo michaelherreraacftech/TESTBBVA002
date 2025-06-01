@@ -52,67 +52,54 @@
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
         
-        /* Estilos para impresión/PDF */
-        @media print {
-            .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:0!important}
-            .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important}
-            .chart-box{height:180px!important;page-break-inside:avoid!important}
-            .chart-box canvas{max-height:130px!important}
-            .results-table{page-break-inside:avoid!important}
-            .architecture-info{page-break-inside:avoid!important}
-            .metrics-grid{page-break-inside:avoid!important}
-            h1,h2{page-break-after:avoid!important}
-            .chart-container-three{page-break-inside:avoid!important}
-            .analysis-section{page-break-inside:avoid!important}
-            
-            /* Ocultar URLs del navegador */
-            @page {
-                margin: 0.5in;
-            }
-            
-            /* Ocultar elementos específicos del navegador */
-            header, nav, .no-print {
-                display: none !important;
-            }
-        }
-        
-        /* Clase para ocultar en impresión */
-        .no-print {
-            display: block;
-        }
-        
-        /* Clase para ocultar en impresión */
-        .no-print {
-            display: block;
-        }
-        
-        /* Header personalizado para PDF */
-        .pdf-header {
+        /* SOLUCIÓN 1: Header PDF con logo texto (fallback) */
+        .pdf-header-text {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: white;
-            z-index: 1000;
+            background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        
+        .pdf-header-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
             padding: 0;
-            box-sizing: border-box;
-            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .pdf-header-text p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* SOLUCIÓN 2: Header con imagen mejorado */
+        .pdf-header-image-container {
+            display: none;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 0;
+            border-bottom: 2px solid #1a237e;
+            background: #1a237e;
         }
         
         .pdf-header-image {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            height: 80px;
             object-fit: cover;
             display: block;
+            margin: 0 auto;
         }
         
+        /* Estilos para impresión/PDF */
         @media print {
             .nav-header{display:none!important}
-            .pdf-header{display:block!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding-top:80px!important;padding-left:0!important;padding-right:0!important;padding-bottom:0!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important}
             .chart-box{height:180px!important;page-break-inside:avoid!important}
             .chart-box canvas{max-height:130px!important}
@@ -122,6 +109,9 @@
             h1,h2{page-break-after:avoid!important}
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
+            
+            /* Mostrar header de imagen para PDF */
+            .pdf-header-image-container{display:block!important}
             
             /* Ocultar URLs del navegador */
             @page {
@@ -134,20 +124,20 @@
             }
         }
         
-        @media print {
-            .no-print {
-                display: none !important;
-            }
+        /* Clase para ocultar en impresión */
+        .no-print {
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header personalizado para PDF -->
-        <div class="pdf-header">
-            <img src="../assets/images/header-acf.png" alt="ACF Technologies - Product Quality Assurance" class="pdf-header-image">
+        <!-- Header con imagen ACF Technologies -->
+        <div class="pdf-header-image-container">
+            <img src="https://raw.githubusercontent.com/michaelherreraacftech/TESTBBVA002/main/assets/images/header-acfv2.png" alt="ACF Technologies - Product Quality Assurance" class="pdf-header-image">
         </div>
-        <!-- Header de navegación -->
+        
+        <!-- Header de navegación (solo web) -->
         <div class="nav-header">
             <button class="back-btn" onclick="goBack()">
                 <span>←</span>
@@ -159,6 +149,7 @@
                 <span>Descargar PDF</span>
             </button>
         </div>
+        
         <div class="document-info">
             <div class="document-info-grid">
                 <div><strong>Fecha de Elaboración:</strong> 30 de Mayo, 2025</div>
