@@ -94,20 +94,12 @@
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
             
-            /* EVITAR separar títulos de contenido */
-            h3 + .chart-container-three{page-break-before:avoid!important}
-            h2 + .legend{page-break-before:avoid!important}
-            .legend{page-break-after:avoid!important}
-            .legend + h3{page-break-before:avoid!important}
-            
-            /* Mantener secciones juntas */
-            h2:contains("Rendimiento de Hardware"), 
-            .legend, 
-            h3:contains("Uso de CPU"), 
-            .chart-container-three:first-of-type {
-                page-break-inside: avoid !important;
-                page-break-before: avoid !important;
-            }
+            /* CONTROL ESPECÍFICO de saltos de página */
+            .hardware-section{page-break-inside:avoid!important}
+            .cpu-memory-section{page-break-inside:avoid!important}
+            .disk-section{page-break-inside:avoid!important}
+            .cpu-memory-section h3{page-break-after:avoid!important}
+            .disk-section h3{page-break-after:avoid!important}
             
             /* Mostrar header LIMPIO para PDF */
             .pdf-header-full{display:block!important}
@@ -265,26 +257,32 @@
         </div>
 
         <h2>Rendimiento de Hardware</h2>
-        <div class="legend">
-            <div class="legend-item"><div class="legend-color" style="background-color:#ff6b6b"></div><span>Memoria</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#f9ca24"></div><span>CPU</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#4ecdc4"></div><span>Disco C: (S.O.)</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#9b59b6"></div><span>Disco N: (Web/IIS)</span></div>
-            <div class="legend-item"><div class="legend-color" style="background-color:#27ae60"></div><span>Disco G: (Q-Flow Data)</span></div>
-        </div>
+        <div class="hardware-section" style="page-break-inside: avoid;">
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background-color:#ff6b6b"></div><span>Memoria</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#f9ca24"></div><span>CPU</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#4ecdc4"></div><span>Disco C: (S.O.)</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#9b59b6"></div><span>Disco N: (Web/IIS)</span></div>
+                <div class="legend-item"><div class="legend-color" style="background-color:#27ae60"></div><span>Disco G: (Q-Flow Data)</span></div>
+            </div>
 
-        <h3>Uso de CPU y Memoria</h3>
-        <div class="chart-container-three">
-            <div class="chart-box"><div class="chart-title">IIS Server 1 - CPU y Memoria</div><canvas id="s1cpu"></canvas></div>
-            <div class="chart-box"><div class="chart-title">IIS Server 2 - CPU y Memoria</div><canvas id="s2cpu"></canvas></div>
-            <div class="chart-box"><div class="chart-title">SQL Server - CPU y Memoria</div><canvas id="sqlcpu"></canvas></div>
-        </div>
+            <div class="cpu-memory-section" style="page-break-inside: avoid;">
+                <h3>Uso de CPU y Memoria</h3>
+                <div class="chart-container-three">
+                    <div class="chart-box"><div class="chart-title">IIS Server 1 - CPU y Memoria</div><canvas id="s1cpu"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">IIS Server 2 - CPU y Memoria</div><canvas id="s2cpu"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">SQL Server - CPU y Memoria</div><canvas id="sqlcpu"></canvas></div>
+                </div>
+            </div>
 
-        <h3>Uso de Discos (I/O)</h3>
-        <div class="chart-container-three">
-            <div class="chart-box"><div class="chart-title">IIS Server 1 - Discos C: y N:</div><canvas id="s1disk"></canvas></div>
-            <div class="chart-box"><div class="chart-title">IIS Server 2 - Discos C: y N:</div><canvas id="s2disk"></canvas></div>
-            <div class="chart-box"><div class="chart-title">SQL Server - Discos C: y G:</div><canvas id="sqldisk"></canvas></div>
+            <div class="disk-section" style="page-break-inside: avoid;">
+                <h3>Uso de Discos (I/O)</h3>
+                <div class="chart-container-three">
+                    <div class="chart-box"><div class="chart-title">IIS Server 1 - Discos C: y N:</div><canvas id="s1disk"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">IIS Server 2 - Discos C: y N:</div><canvas id="s2disk"></canvas></div>
+                    <div class="chart-box"><div class="chart-title">SQL Server - Discos C: y G:</div><canvas id="sqldisk"></canvas></div>
+                </div>
+            </div>
         </div>
 
         <h2>Análisis de Rendimiento</h2>
