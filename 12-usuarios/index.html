@@ -51,6 +51,21 @@
         .back-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(52,152,219,0.3);text-decoration:none;color:white}
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
+        
+        /* Estilos para impresión/PDF */
+        @media print {
+            .nav-header{display:none!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:0!important}
+            .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:130px!important}
+            .results-table{page-break-inside:avoid!important}
+            .architecture-info{page-break-inside:avoid!important}
+            .metrics-grid{page-break-inside:avoid!important}
+            h1,h2{page-break-after:avoid!important}
+            .chart-container-three{page-break-inside:avoid!important}
+            .analysis-section{page-break-inside:avoid!important}
+        }
     </style>
 </head>
 <body>
@@ -261,19 +276,30 @@ document.addEventListener('keydown', function(event) {
 
 // Función para descargar como PDF
 function downloadPDF() {
-    // Método 1: Imprimir usando el navegador (más compatible)
     const originalTitle = document.title;
     document.title = 'Reporte_BBVA_12_Usuarios_' + new Date().toISOString().split('T')[0];
     
-    // Optimizar para impresión
-    document.body.style.fontSize = '10px';
+    // Configurar para impresión óptima
+    const originalFontSize = document.body.style.fontSize;
+    const originalBackground = document.body.style.background;
     
-    // Llamar al diálogo de impresión
-    window.print();
+    // Optimizar estilos para PDF
+    document.body.style.fontSize = '9px';
+    document.body.style.background = 'white';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
     
-    // Restaurar
-    document.title = originalTitle;
-    document.body.style.fontSize = '12px';
+    // Dar un momento para que se apliquen los estilos
+    setTimeout(() => {
+        window.print();
+        
+        // Restaurar estilos originales después de imprimir
+        setTimeout(() => {
+            document.title = originalTitle;
+            document.body.style.fontSize = originalFontSize;
+            document.body.style.background = originalBackground;
+        }, 1000);
+    }, 100);
 }
 </script>
 </body>
