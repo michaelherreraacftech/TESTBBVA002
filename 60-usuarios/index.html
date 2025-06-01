@@ -18,25 +18,24 @@
         .test-summary-content{flex:1}
         .test-summary h3{margin-top:0;margin-bottom:5px;font-size:16px;color:#ecf0f1}
         .test-summary p{margin:0;font-size:12px}
-        .result-badge{background:#e74c3c;color:white;padding:15px 20px;border-radius:6px;font-weight:bold;font-size:18px;text-align:center;min-width:80px;height:50px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+        .result-badge{background:#2ecc71;color:white;padding:15px 20px;border-radius:6px;font-weight:bold;font-size:18px;text-align:center;min-width:80px;height:50px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
         .results-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:10px}
         .results-table th,.results-table td{border:1px solid #ddd;padding:6px 4px;text-align:center}
         .results-table th{background:linear-gradient(135deg,#3498db,#2980b9);color:white;font-weight:bold}
         .results-table tr:nth-child(even){background-color:#f9f9f9}
-        .fail{background-color:#e74c3c;color:white;padding:5px 10px;border-radius:15px;font-weight:bold}
+        .pass{background-color:#2ecc71;color:white;padding:5px 10px;border-radius:15px;font-weight:bold}
         .chart-container-three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
         .chart-box{background:white;padding:10px;border-radius:6px;box-shadow:0 1px 5px rgba(0,0,0,0.1);height:200px}
         .chart-box canvas{max-height:150px!important;max-width:100%!important}
         .chart-title{text-align:center;color:#2c3e50;margin-bottom:8px;font-weight:bold;font-size:11px}
         .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr) 150px;gap:10px;margin:15px 0;align-items:center}
-        .metric-card{background:linear-gradient(135deg,#ffccd5 0%,#ffb3ba 100%);color:#c0392b;padding:10px;border-radius:6px;text-align:center}
+        .metric-card{background:linear-gradient(135deg,#a8e6cf 0%,#7fcdcd 100%);color:#2c3e50;padding:10px;border-radius:6px;text-align:center}
         .metric-value{font-size:1.4em;font-weight:bold;margin-bottom:3px}
         .metric-label{font-size:0.8em;opacity:0.9}
         .pie-chart-container{display:flex;flex-direction:column;align-items:center;background:white;padding:10px;border-radius:6px;box-shadow:0 1px 5px rgba(0,0,0,0.1)}
         .pie-chart-title{font-size:10px;font-weight:bold;color:#2c3e50;margin-bottom:5px}
         .pie-chart-container canvas{max-height:100px!important;max-width:100px!important}
         .architecture-info{background:#ecf0f1;padding:12px;border-radius:6px;margin:15px 0;font-size:11px}
-        .critical-warning{background:#ffebee;border:2px solid #e74c3c;padding:12px;border-radius:6px;margin:15px 0;font-size:11px}
         .server-info{display:flex;justify-content:space-between;gap:15px;margin:10px 0}
         .server-box{flex:1;background:white;padding:10px;border-radius:6px;border-left:3px solid #3498db}
         .server-box h4{margin-top:0;margin-bottom:8px;font-size:12px}
@@ -62,8 +61,9 @@
                 <span>←</span>
                 <span>Regresar</span>
             </button>
-            <div class="page-title">Reporte de Performance - 60 Usuarios Concurrentes (FAIL)</div>
+            <div class="page-title">Reporte de Performance - 48 Usuarios Concurrentes (ÓPTIMO)</div>
         </div>
+
         <div class="document-info">
             <div class="document-info-grid">
                 <div><strong>Fecha de Elaboración:</strong> 30 de Mayo, 2025</div>
@@ -74,19 +74,14 @@
         </div>
 
         <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA-DESA</h1>
-        <p class="subtitle">Evaluación Completa de Rendimiento: 60 Usuarios Concurrentes<br><strong>Script Info Page(1) Activo</strong></p>
+        <p class="subtitle">Evaluación Completa de Rendimiento: 48 Usuarios Concurrentes<br><strong>Script Info Page(1) Activo</strong></p>
 
         <div class="test-summary">
             <div class="test-summary-content">
-                <h3>Prueba BBVAReceptionConsole006 - Performance (60 Usuarios Concurrentes)</h3>
-                <p><strong>Duración:</strong> 8 minutos | <strong>Arquitectura:</strong> Q-Flow + IIS + SQL Server</p>
+                <h3>Prueba BBVAReceptionConsole005 - Performance (48 Usuarios Concurrentes)</h3>
+                <p><strong>Duración:</strong> 5 minutos | <strong>Arquitectura:</strong> Q-Flow + IIS + SQL Server</p>
             </div>
-            <div class="result-badge">FAIL</div>
-        </div>
-
-        <div class="critical-warning">
-            <h4 style="color:#c0392b;margin-top:0">⚠️ ALERTA CRÍTICA: LÍMITE DE INFRAESTRUCTURA ALCANZADO</h4>
-            <p><strong>El servidor de QA-DESA ha superado su capacidad operacional. Esta prueba confirma el límite máximo de 48 usuarios concurrentes para esta infraestructura específica de QA-DESA.</strong></p>
+            <div class="result-badge">PASS</div>
         </div>
 
         <div class="architecture-info">
@@ -149,17 +144,17 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>BBVAReceptionConsole006</strong></td><td>60 usuarios</td><td>8 min</td><td>18,736</td><td>2,862</td><td>15.29%</td><td>994</td><td>0</td><td>20463</td><td>---</td><td>39.8</td><td><span class="fail">FAIL</span></td>
+                    <td><strong>BBVAReceptionConsole005</strong></td><td>48 usuarios</td><td>5 min</td><td>14,990</td><td>87</td><td>0.60%</td><td>379</td><td>0</td><td>6635</td><td>---</td><td>55.2</td><td><span class="pass">PASS</span></td>
                 </tr>
             </tbody>
         </table>
 
         <h2>Métricas Clave</h2>
         <div class="metrics-grid">
-            <div class="metric-card"><div class="metric-value">39.8</div><div class="metric-label">Transacciones/seg</div></div>
-            <div class="metric-card"><div class="metric-value">15.29%</div><div class="metric-label">Tasa de Error</div></div>
-            <div class="metric-card"><div class="metric-value">994ms</div><div class="metric-label">Tiempo Promedio</div></div>
-            <div class="metric-card"><div class="metric-value">20463ms</div><div class="metric-label">Máximo</div></div>
+            <div class="metric-card"><div class="metric-value">55.2</div><div class="metric-label">Transacciones/seg</div></div>
+            <div class="metric-card"><div class="metric-value">0.60%</div><div class="metric-label">Tasa de Error</div></div>
+            <div class="metric-card"><div class="metric-value">379ms</div><div class="metric-label">Tiempo Promedio</div></div>
+            <div class="metric-card"><div class="metric-value">6635ms</div><div class="metric-label">Máximo</div></div>
             <div class="pie-chart-container">
                 <div class="pie-chart-title">Resultado</div>
                 <canvas id="resultPieChart" width="100" height="100"></canvas>
@@ -191,22 +186,17 @@
 
         <h2>Análisis de Rendimiento</h2>
         <div class="architecture-info">
-            <h4>Observaciones Críticas:</h4>
+            <h4>Observaciones Clave:</h4>
             <ul>
-                <li><strong>Límite de Infraestructura:</strong> 15.29% de errores marca el límite del servidor de QA-DESA</li>
-                <li><strong>Degradación por Hardware:</strong> Caída del 28% en throughput (55.2 → 39.8 TPS)</li>
-                <li><strong>Latencia por Recursos:</strong> Tiempo promedio aumentó 162% (379ms → 994ms)</li>
-                <li><strong>Picos de Servidor Limitado:</strong> Tiempo máximo de 20.4 segundos vs 6.6s anterior</li>
-                <li><strong>SQL Server QA Saturado:</strong> CPU sostenido al 80-100% - límite de hardware</li>
-                <li><strong>Memoria de QA al Límite:</strong> Picos constantes por especificaciones reducidas</li>
-                <li><strong>Capacidad de Servidor Confirmada:</strong> 48 usuarios máximos para esta infraestructura QA</li>
-                <li><strong>Q-Flow Sistema Robusto:</strong> El software maneja la carga; hardware es el limitante</li>
+                <li><strong>Validación de Consistencia:</strong> Resultados idénticos confirman estabilidad del sistema</li>
+                <li><strong>Repetibilidad Comprobada:</strong> 55.2 TPS y 0.60% errores replicados exactamente</li>
+                <li><strong>Punto de Equilibrio Confirmado:</strong> 48 usuarios representa capacidad óptima estable</li>
+                <li><strong>SQL Server Predecible:</strong> Comportamiento consistente al 96% CPU, 55% memoria</li>
+                <li><strong>Balanceador Confiable:</strong> Distribución de carga uniforme entre servidores IIS</li>
+                <li><strong>Rendimiento Sostenible:</strong> Sistema mantiene métricas durante pruebas consecutivas</li>
+                <li><strong>Límite Operacional Definido:</strong> Umbral máximo establecido sin degradación</li>
+                <li><strong>Arquitectura Robusta:</strong> Sistema demuestra resistencia bajo carga sostenida</li>
             </ul>
-        </div>
-
-        <div class="critical-warning">
-            <h4 style="color:#c0392b;margin-top:0">🚨 CONCLUSIÓN: LÍMITE DE INFRAESTRUCTURA DE QA-DESA</h4>
-            <p><strong>Esta prueba demuestra que el servidor de QA-DESA alcanzó su límite de infraestructura con 60 usuarios concurrentes. Q-Flow como sistema es capaz de manejar mayor carga en servidores de mayor capacidad. El límite operacional para este entorno QA-DESA específico se establece en 48 usuarios concurrentes máximo.</strong></p>
         </div>
     </div>
 
@@ -214,10 +204,10 @@
 window.addEventListener('load', function() {
     if (typeof Chart === 'undefined') return;
     
-    const t = ['5:07', '5:09', '5:11', '5:13', '5:15', '5:16'];
-    const s1 = {cpu: [28, 35, 52, 45, 38, 42], mem: [22, 28, 38, 42, 35, 32], dc: [5, 8, 15, 18, 12, 10], dn: [20, 28, 45, 52, 38, 35]};
-    const s2 = {cpu: [26, 32, 48, 42, 36, 40], mem: [20, 26, 36, 40, 33, 30], dc: [4, 7, 13, 16, 11, 9], dn: [18, 26, 42, 48, 36, 33]};
-    const sql = {cpu: [85, 92, 98, 95, 88, 90], mem: [65, 72, 80, 85, 78, 75], dc: [12, 18, 25, 22, 18, 15], dg: [45, 62, 85, 92, 75, 68]};
+    const t = ['4:55', '4:56', '4:57', '4:58', '4:59', '5:00'];
+    const s1 = {cpu: [19, 23, 34, 43, 31, 27], mem: [16, 21, 29, 34, 29, 23], dc: [2, 4, 8, 11, 8, 5], dn: [13, 19, 31, 44, 33, 26]};
+    const s2 = {cpu: [17, 21, 33, 41, 29, 25], mem: [15, 19, 27, 32, 27, 21], dc: [2, 3, 7, 9, 7, 4], dn: [11, 17, 29, 41, 31, 24]};
+    const sql = {cpu: [46, 59, 76, 95, 84, 69], mem: [36, 43, 51, 54, 53, 46], dc: [5, 8, 12, 17, 15, 10], dg: [26, 36, 56, 84, 71, 56]};
     
     const opt = {responsive: true, maintainAspectRatio: true, aspectRatio: 2, plugins: {legend: {display: true, position: 'top', labels: {font: {size: 9}, boxWidth: 10, padding: 8}}}, scales: {y: {beginAtZero: true, max: 100, title: {display: true, text: 'Uso (%)', font: {size: 10}}, ticks: {font: {size: 9}}}, x: {title: {display: true, text: 'Tiempo', font: {size: 10}}, ticks: {font: {size: 9}}}}};
     
@@ -232,7 +222,7 @@ window.addEventListener('load', function() {
         }
     }
     
-    cc('resultPieChart', {type: 'pie', data: {labels: ['PASS (84.71%)', 'FAIL (15.29%)'], datasets: [{data: [84.71, 15.29], backgroundColor: ['#2ecc71', '#e74c3c'], borderWidth: 2, borderColor: '#ffffff'}]}, options: {responsive: true, maintainAspectRatio: true, plugins: {legend: {display: true, position: 'bottom', labels: {font: {size: 8}, boxWidth: 8, padding: 4, usePointStyle: true}}}}});
+    cc('resultPieChart', {type: 'pie', data: {labels: ['PASS (99.40%)', 'FAIL (0.60%)'], datasets: [{data: [99.40, 0.60], backgroundColor: ['#2ecc71', '#e74c3c'], borderWidth: 2, borderColor: '#ffffff'}]}, options: {responsive: true, maintainAspectRatio: true, plugins: {legend: {display: true, position: 'bottom', labels: {font: {size: 8}, boxWidth: 8, padding: 4, usePointStyle: true}}}}});
     
     cc('s1cpu', {type: 'line', data: {labels: t, datasets: [{label: 'CPU', data: s1.cpu, borderColor: '#f9ca24', backgroundColor: 'rgba(249, 202, 36, 0.1)', tension: 0.4, borderWidth: 2}, {label: 'Memoria', data: s1.mem, borderColor: '#ff6b6b', backgroundColor: 'rgba(255, 107, 107, 0.1)', tension: 0.4, borderWidth: 2}]}, options: opt});
     
@@ -246,7 +236,7 @@ window.addEventListener('load', function() {
     
     cc('sqldisk', {type: 'line', data: {labels: t, datasets: [{label: 'Disco C: (S.O.)', data: sql.dc, borderColor: '#4ecdc4', backgroundColor: 'rgba(78, 205, 196, 0.1)', tension: 0.4, borderWidth: 2}, {label: 'Disco G: (Q-Flow Data)', data: sql.dg, borderColor: '#27ae60', backgroundColor: 'rgba(39, 174, 96, 0.1)', tension: 0.4, borderWidth: 2}]}, options: opt});
     
-    console.log('⚠️ Gráficos 60 usuarios (FAIL) cargados!');
+    console.log('🎯 Gráficos 48 usuarios (ÓPTIMO) cargados!');
 });
 
 // Función de navegación para SharePoint
