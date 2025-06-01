@@ -65,13 +65,11 @@
             max-width: 200px;
             max-height: 40px;
             object-fit: contain;
-            background: white;
-            padding: 5px;
+            background: transparent;
             border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
-        /* Fallback logo con texto */
+        /* Fallback logo con texto (solo si imagen falla) */
         .pdf-logo-text {
             display: none;
             position: absolute;
@@ -101,9 +99,8 @@
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
             
-            /* Mostrar logo pequeño para PDF */
+            /* Mostrar solo logo de imagen para PDF */
             .pdf-logo{display:block!important}
-            .pdf-logo-text{display:block!important}
             
             /* Ocultar URLs del navegador */
             @page {
@@ -128,7 +125,7 @@
         <div class="pdf-logo">
             <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
                  alt="ACF Technologies"
-                 onerror="this.parentElement.style.display='none';">
+                 onerror="this.parentElement.style.display='none'; document.querySelector('.pdf-logo-text').style.display='block';">
         </div>
         
         <!-- Fallback: Logo de texto si la imagen no carga -->
