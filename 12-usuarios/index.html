@@ -83,17 +83,19 @@
             display: none;
             text-align: center;
             margin-bottom: 20px;
-            padding: 0;
+            padding: 5px 0;
             border-bottom: 2px solid #1a237e;
             background: #1a237e;
+            overflow: hidden;
         }
         
         .pdf-header-image {
             max-width: 100%;
-            height: 80px;
-            object-fit: cover;
+            height: 50px;
+            object-fit: contain;
             display: block;
             margin: 0 auto;
+            background: transparent;
         }
         
         /* Estilos para impresión/PDF */
@@ -134,7 +136,13 @@
     <div class="container">
         <!-- Header con imagen ACF Technologies -->
         <div class="pdf-header-image-container">
-            <img src="https://raw.githubusercontent.com/michaelherreraacftech/TESTBBVA002/main/assets/images/header-acfv2.png" alt="ACF Technologies - Product Quality Assurance" class="pdf-header-image">
+            <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
+                 alt="ACF Technologies - Product Quality Assurance" 
+                 class="pdf-header-image"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:white; padding:10px 0; font-weight:bold; font-size:16px;">
+                ACF Technologies - Product Quality Assurance
+            </div>
         </div>
         
         <!-- Header de navegación (solo web) -->
