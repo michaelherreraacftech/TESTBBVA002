@@ -55,12 +55,14 @@
         /* Header completo PERFECTO para PDF */
         .pdf-header-full {
             display: none;
-            width: 100%;
             text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
+            margin: 0 auto 40px auto;
+            padding: 20px;
             border-bottom: 3px solid #1a237e;
             background: #f8f9fa;
+            width: fit-content;
+            max-width: 95%;
+            border-radius: 8px;
         }
         
         .pdf-header-full img {
@@ -71,6 +73,7 @@
             max-height: 150px;
             object-fit: contain;
             background: transparent;
+            display: block;
         }
         
         /* Estilos para impresión/PDF */
