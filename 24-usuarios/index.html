@@ -87,48 +87,22 @@
             .chart-box{height:180px!important;page-break-inside:avoid!important}
             .chart-box canvas{max-height:130px!important}
             .results-table{page-break-inside:avoid!important}
-            .architecture-info{page-break-inside:avoid!important;background:white!important}
+            .architecture-info{page-break-inside:avoid!important}
             .metrics-grid{page-break-inside:avoid!important}
             h1,h2{page-break-after:avoid!important}
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
-            .document-info{background:white!important}
             
             /* Mostrar header LIMPIO para PDF */
             .pdf-header-full{display:block!important}
             
-            /* FORZAR SOLO FONDOS PROBLEMÁTICOS A BLANCO */
-            .container, .architecture-info, .document-info, body, .pdf-header-full {
-                background-color: white !important;
-            }
+            /* SOLO cambiar fondo problemático específico */
+            .document-info{background:#f8f9fa!important}
             
-            /* PRESERVAR colores importantes */
-            .test-summary, .result-badge, .pass, .metric-card, .legend-color, 
-            .results-table th, .back-btn, .pie-chart-container {
-                background-color: initial !important;
-            }
-            
-            /* PRESERVAR colores de texto */
-            .test-summary, .test-summary h3, .test-summary p,
-            .result-badge, .pass, .results-table th {
-                color: initial !important;
-            }
-            
-            /* PRESERVAR gradientes */
-            .test-summary {
-                background: linear-gradient(135deg,#2c3e50 0%,#34495e 100%) !important;
-            }
-            
-            .results-table th {
-                background: linear-gradient(135deg,#3498db,#2980b9) !important;
-            }
-            
-            .metric-card {
-                background: linear-gradient(135deg,#a8e6cf 0%,#7fcdcd 100%) !important;
-            }
-            
-            .pdf-header-full {
-                background: white !important;
+            /* Asegurar print colors */
+            body { 
+                -webkit-print-color-adjust: exact !important; 
+                color-adjust: exact !important;
             }
             
             /* Ocultar URLs del navegador */
