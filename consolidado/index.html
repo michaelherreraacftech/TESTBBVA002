@@ -8,11 +8,11 @@
     <style>
         body{font-family:'Aptos','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.4;margin:0;padding:10px;background-color:#f5f5f5;font-size:12px}
         .container{max-width:1600px;margin:0 auto;background:white;padding:20px;border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,0.1)}
+        .document-info{background:#f8f9fa;padding:15px;border-radius:6px;margin-bottom:20px;border-left:4px solid #1a237e}
+        .document-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;font-size:12px;color:#666}
         h1{color:#2c3e50;text-align:center;border-bottom:3px solid #3498db;padding-bottom:10px;margin-bottom:20px;font-size:24px}
         h2{color:#34495e;margin-top:25px;margin-bottom:15px;border-left:4px solid #3498db;padding-left:15px;font-size:18px}
         h3{color:#34495e;margin-top:20px;margin-bottom:10px;font-size:14px}
-        .document-info{background:#f8f9fa;padding:15px;border-radius:6px;margin-bottom:20px;border-left:4px solid #1a237e}
-        .document-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;font-size:12px;color:#666}
         .executive-summary{background:linear-gradient(135deg,#2c3e50 0%,#34495e 100%);color:white;padding:20px;border-radius:8px;margin-bottom:25px}
         .executive-summary h2{margin-top:0;color:white;border:none;padding:0;font-size:20px}
         .key-findings{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:15px 0}
@@ -48,17 +48,106 @@
         .back-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(52,152,219,0.3);text-decoration:none;color:white}
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
+
+        /* Header SIMPLE y COMPACTO para PDF */
+        .pdf-header-full {
+            display: none;
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 0;
+            border-bottom: 3px solid #1a237e;
+            background: white;
+        }
+        
+        .pdf-header-full img {
+            width: 90%;
+            max-width: 1000px;
+            height: auto;
+            min-height: 120px;
+            max-height: 150px;
+            object-fit: contain;
+            background: white;
+            margin: 10px auto 15px auto;
+            display: block;
+        }
+
+        /* Clase para ocultar en impresión */
+        .no-print {
+            display: block;
+        }
+
+        /* Estilos para impresión/PDF */
+        @media print {
+            .nav-header{display:none!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important;background:white!important}
+            .chart-box{height:250px!important;page-break-inside:avoid!important}
+            .chart-box.large{height:300px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:200px!important}
+            .chart-box.large canvas{max-height:250px!important}
+            .results-table{page-break-inside:avoid!important}
+            .analysis-section{page-break-inside:avoid!important}
+            .chart-container-two{page-break-inside:avoid!important}
+            .chart-container-four{page-break-inside:avoid!important}
+            h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
+            .executive-summary{page-break-inside:avoid!important}
+            .recommendations{page-break-inside:avoid!important}
+            
+            /* Mostrar header LIMPIO para PDF */
+            .pdf-header-full{display:block!important}
+            
+            /* SOLO cambiar fondo problemático específico */
+            .document-info{background:#f8f9fa!important}
+            
+            /* Asegurar print colors */
+            body { 
+                -webkit-print-color-adjust: exact !important; 
+                color-adjust: exact !important;
+            }
+            
+            /* FORZAR colores de badges */
+            .pass {
+                background-color: #2ecc71 !important;
+                color: white !important;
+            }
+            
+            .fail {
+                background-color: #e74c3c !important;
+                color: white !important;
+            }
+            
+            /* Ocultar URLs del navegador */
+            @page {
+                margin: 0.4in;
+            }
+            
+            /* Ocultar elementos específicos del navegador */
+            header, nav, .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header de navegación -->
+        <!-- Header completo ACF Technologies ARRIBA DE TODO -->
+        <div class="pdf-header-full">
+            <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
+                 alt="ACF Technologies - Product Quality Assurance">
+        </div>
+
+        <!-- Header de navegación (solo web) -->
         <div class="nav-header">
             <button class="back-btn" onclick="goBack()">
                 <span>←</span>
                 <span>Regresar</span>
             </button>
-            <div class="page-title">Análisis Consolidado - Todos los Reportes</div>
+            <div class="page-title">Reporte Consolidado - Análisis Completo de Capacidad</div>
+            <button class="back-btn" onclick="downloadPDF()" style="background:linear-gradient(135deg,#27ae60,#2ecc71)">
+                <span>📄</span>
+                <span>Descargar PDF</span>
+            </button>
         </div>
 
         <div class="document-info">
@@ -67,11 +156,16 @@
                 <div><strong>Entorno:</strong> QA-DESA</div>
                 <div><strong>Cliente:</strong> BBVA Mex</div>
                 <div><strong>Modalidad:</strong> Script Info Page Activo</div>
+                <div><strong>Analista Responsable:</strong> Michael J Herrera B</div>
+                <div><strong>Cargo:</strong> Líder de Aseguramiento de Calidad</div>
             </div>
         </div>
 
         <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA-DESA</h1>
-        <p style="text-align:center;color:#7f8c8d;font-style:italic;margin-bottom:25px">Evaluación Completa de Rendimiento: 12 a 60 Usuarios Concurrentes<br><strong>Script Info Page(1) Activo</strong></p>
+        <p style="text-align:center;color:#7f8c8d;font-style:italic;margin-bottom:25px">
+            Evaluación Completa de Rendimiento: 12 a 60 Usuarios Concurrentes<br>
+            <strong>Script Info Page(1) Activo</strong>
+        </p>
 
         <div class="executive-summary">
             <h2>📊 Resumen Ejecutivo</h2>
@@ -97,24 +191,90 @@
         <table class="results-table">
             <thead>
                 <tr>
-                    <th>Prueba</th><th>Usuarios</th><th>Fase</th><th>Muestras</th><th>Errores</th><th>% Error</th><th>Tiempo Prom (ms)</th><th>Max (ms)</th><th>TPS</th><th>Estado</th>
+                    <th>Prueba</th>
+                    <th>Usuarios</th>
+                    <th>Fase</th>
+                    <th>Muestras</th>
+                    <th>Errores</th>
+                    <th>% Error</th>
+                    <th>Tiempo Prom (ms)</th>
+                    <th>Max (ms)</th>
+                    <th>TPS</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Console001</strong></td><td>12</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>3,600</td><td>0</td><td>0.00%</td><td>311</td><td>855</td><td>14.6</td><td><span class="pass">PASS</span></td>
+                    <td><strong>Console001</strong></td>
+                    <td>12</td>
+                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
+                    <td>3,600</td>
+                    <td>0</td>
+                    <td>0.00%</td>
+                    <td>311</td>
+                    <td>855</td>
+                    <td>14.6</td>
+                    <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console002</strong></td><td>24</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>7,200</td><td>0</td><td>0.00%</td><td>331</td><td>872</td><td>28.2</td><td><span class="pass">PASS</span></td>
+                    <td><strong>Console002</strong></td>
+                    <td>24</td>
+                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
+                    <td>7,200</td>
+                    <td>0</td>
+                    <td>0.00%</td>
+                    <td>331</td>
+                    <td>872</td>
+                    <td>28.2</td>
+                    <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console003</strong></td><td>36</td><td><span class="phase-indicator phase-warning">ADVERTENCIA</span></td><td>10,800</td><td>92</td><td>0.85%</td><td>412</td><td>7,904</td><td>38.8</td><td><span class="pass">PASS</span></td>
+                    <td><strong>Console003</strong></td>
+                    <td>36</td>
+                    <td><span class="phase-indicator phase-warning">ADVERTENCIA</span></td>
+                    <td>10,800</td>
+                    <td>92</td>
+                    <td>0.85%</td>
+                    <td>412</td>
+                    <td>7,904</td>
+                    <td>38.8</td>
+                    <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console005</strong></td><td>48</td><td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td><td>14,990</td><td>87</td><td>0.60%</td><td>379</td><td>6,635</td><td>55.2</td><td><span class="pass">PASS</span></td>
+                    <td><strong>Console004</strong></td>
+                    <td>48</td>
+                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
+                    <td>14,990</td>
+                    <td>87</td>
+                    <td>0.58%</td>
+                    <td>379</td>
+                    <td>6,635</td>
+                    <td>55.2</td>
+                    <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
-                    <td><strong>Console006</strong></td><td>60</td><td><span class="phase-indicator phase-critical">CRÍTICA</span></td><td>18,736</td><td>2,862</td><td>15.29%</td><td>994</td><td>20,463</td><td>39.8</td><td><span class="fail">FAIL</span></td>
+                    <td><strong>Console005</strong></td>
+                    <td>48</td>
+                    <td><span class="phase-indicator phase-optimal">ÓPTIMA</span></td>
+                    <td>14,990</td>
+                    <td>87</td>
+                    <td>0.60%</td>
+                    <td>379</td>
+                    <td>6,635</td>
+                    <td>55.2</td>
+                    <td><span class="pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Console006</strong></td>
+                    <td>60</td>
+                    <td><span class="phase-indicator phase-critical">CRÍTICA</span></td>
+                    <td>18,736</td>
+                    <td>2,862</td>
+                    <td>15.29%</td>
+                    <td>994</td>
+                    <td>20,463</td>
+                    <td>39.8</td>
+                    <td><span class="fail">FAIL</span></td>
                 </tr>
             </tbody>
         </table>
@@ -195,6 +355,72 @@
             </ul>
         </div>
 
+        <div class="analysis-section">
+            <h3>💻 Especificaciones de Infraestructura QA-DESA</h3>
+            
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:15px 0">
+                <div style="background:white;padding:15px;border-radius:6px;box-shadow:0 2px 4px rgba(0,0,0,0.1)">
+                    <h4 style="margin-top:0;color:#e74c3c;font-size:13px;display:flex;align-items:center;gap:8px">
+                        <span style="background:#e74c3c;color:white;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px">📊</span>
+                        SQL Server (BBVAMX-UATSQL1)
+                    </h4>
+                    <ul style="font-size:10px;margin:0;padding-left:15px;list-style-type:disc">
+                        <li><strong>OS:</strong> Windows Server 2022 Datacenter</li>
+                        <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
+                        <li><strong>RAM:</strong> 7.95 GB Total (2.07 GB Disponible)</li>
+                        <li><strong>Virtualización:</strong> Hyper-V Virtual Machine</li>
+                        <li><strong>Arquitectura:</strong> x64-based PC</li>
+                    </ul>
+                </div>
+                
+                <div style="background:white;padding:15px;border-radius:6px;box-shadow:0 2px 4px rgba(0,0,0,0.1)">
+                    <h4 style="margin-top:0;color:#27ae60;font-size:13px;display:flex;align-items:center;gap:8px">
+                        <span style="background:#27ae60;color:white;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px">🌐</span>
+                        IIS Server 1 (BBVAMX-UATIIS1)
+                    </h4>
+                    <ul style="font-size:10px;margin:0;padding-left:15px;list-style-type:disc">
+                        <li><strong>OS:</strong> Windows Server 2022 Datacenter</li>
+                        <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
+                        <li><strong>RAM:</strong> 7.95 GB Total (3.38 GB Disponible)</li>
+                        <li><strong>Virtualización:</strong> Hyper-V Virtual Machine</li>
+                        <li><strong>Rol:</strong> Web Services Q-Flow</li>
+                    </ul>
+                </div>
+                
+                <div style="background:white;padding:15px;border-radius:6px;box-shadow:0 2px 4px rgba(0,0,0,0.1)">
+                    <h4 style="margin-top:0;color:#3498db;font-size:13px;display:flex;align-items:center;gap:8px">
+                        <span style="background:#3498db;color:white;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px">🌐</span>
+                        IIS Server 2 (BBVAMX-UATIIS2)
+                    </h4>
+                    <ul style="font-size:10px;margin:0;padding-left:15px;list-style-type:disc">
+                        <li><strong>OS:</strong> Windows Server 2022 Datacenter</li>
+                        <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
+                        <li><strong>RAM:</strong> 7.95 GB Total (4.49 GB Disponible)</li>
+                        <li><strong>Virtualización:</strong> Hyper-V Virtual Machine</li>
+                        <li><strong>Rol:</strong> Web Services Q-Flow</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background:#fff3cd;border:1px solid #ffeaa7;padding:10px;border-radius:6px;margin-top:15px">
+                <p style="margin:0;font-size:11px;color:#856404"><strong>Nota Importante:</strong> 
+                Todas las pruebas fueron ejecutadas con <strong>Script Info Page(1) Activo</strong>, y todos los demás Scripts desarrollados para el cliente inactivos. Eso en aras de evaluar la capacidad del sistema bajo la ejecución de cada Script por separado. Esto puede impactar los tiempos de respuesta y uso de recursos y nos ayudará a garantizar el funcionamiento individual de cada uno de los recursos.</p>
+            </div>
+        </div>
+
+        <div class="analysis-section">
+            <h3>📋 Observaciones Técnicas Clave</h3>
+            <ul>
+                <li><strong>Cuello de Botella Principal:</strong> SQL Server es el limitante crítico del sistema</li>
+                <li><strong>Limitación de Recursos:</strong> SQL Server con solo 2 cores y 7.95GB RAM para carga empresarial</li>
+                <li><strong>Balanceador Eficiente:</strong> Los servidores IIS muestran distribución equilibrada</li>
+                <li><strong>Punto de Inflexión:</strong> Entre 48 y 60 usuarios existe un punto de quiebre dramático</li>
+                <li><strong>Consistencia Validada:</strong> Pruebas 004 y 005 confirman repetibilidad a 48 usuarios</li>
+                <li><strong>Capacidad del Software:</strong> Q-Flow como sistema es robusto; limitación es infraestructura QA-DESA</li>
+                <li><strong>Impacto Script Info Page:</strong> Modalidad activa puede incrementar overhead en procesamiento</li>
+            </ul>
+        </div>
+
         <div class="recommendations">
             <h3>🎯 Recomendaciones Estratégicas</h3>
             <h4>Para Entorno QA-DESA:</h4>
@@ -210,6 +436,13 @@
                 <li><strong>Optimización de BD:</strong> Revisar índices y consultas de Q-Flow</li>
                 <li><strong>Arquitectura Distribuida:</strong> Considerar cluster SQL Server para mayor capacidad</li>
             </ul>
+            
+            <h4>Para Producción:</h4>
+            <ul>
+                <li><strong>Infraestructura Robusta:</strong> Dimensionar servidores para 2-3x la capacidad requerida</li>
+                <li><strong>Testing Continuo:</strong> Pruebas de carga regulares en entorno similar a QA-DESA</li>
+                <li><strong>Plan de Contingencia:</strong> Estrategias de mitigación cuando se acerque al límite</li>
+            </ul>
         </div>
 
         <div class="executive-summary">
@@ -218,24 +451,25 @@
             La degradación crítica a 60 usuarios marca claramente el límite del hardware, no del software. 
             Para mayor capacidad, se requiere escalamiento de infraestructura, especialmente del servidor SQL Server.</p>
             
-            <p style="margin-top:15px"><em>Este análisis establece una línea base sólida para la planificación de capacidad y decisiones de infraestructura futuras.</em></p>
+            <p style="margin-top:15px"><em>Este análisis establece una línea base sólida para la planificación de capacidad y 
+            decisiones de infraestructura futuras.</em></p>
         </div>
     </div>
 
 <script>
 window.addEventListener('load', function() {
     if (typeof Chart === 'undefined') return;
-
+    
     const testData = {
-        users: [12, 24, 36, 48, 60],
-        throughput: [14.6, 28.2, 38.8, 55.2, 39.8],
-        errorRate: [0.00, 0.00, 0.85, 0.60, 15.29],
-        avgResponseTime: [311, 331, 412, 379, 994],
-        maxResponseTime: [855, 872, 7904, 6635, 20463],
-        sqlCpu: [45, 65, 75, 85, 95],
-        sqlMemory: [28, 38, 48, 52, 78],
-        iisCpuAvg: [20, 35, 50, 38, 42],
-        iisMemoryAvg: [15, 25, 32, 29, 35]
+        users: [12, 24, 36, 48, 48, 60],
+        throughput: [14.6, 28.2, 38.8, 55.2, 55.2, 39.8],
+        errorRate: [0.00, 0.00, 0.85, 0.58, 0.60, 15.29],
+        avgResponseTime: [311, 331, 412, 379, 379, 994],
+        maxResponseTime: [855, 872, 7904, 6635, 6635, 20463],
+        sqlCpu: [45, 65, 75, 85, 85, 95],
+        sqlMemory: [28, 38, 48, 52, 52, 78],
+        iisCpuAvg: [20, 35, 50, 38, 38, 42],
+        iisMemoryAvg: [15, 25, 32, 29, 29, 35]
     };
 
     const commonConfig = {
@@ -415,7 +649,7 @@ window.addEventListener('load', function() {
             datasets: [{
                 data: testData.sqlCpu,
                 backgroundColor: [
-                    '#2ecc71', '#f39c12', '#e67e22', '#e74c3c', '#c0392b'
+                    '#2ecc71', '#f39c12', '#e67e22', '#e74c3c', '#e74c3c', '#c0392b'
                 ],
                 borderWidth: 1
             }]
@@ -430,7 +664,7 @@ window.addEventListener('load', function() {
             datasets: [{
                 data: testData.sqlMemory,
                 backgroundColor: [
-                    '#3498db', '#5dade2', '#85c1e9', '#a9cce3', '#2874a6'
+                    '#3498db', '#5dade2', '#85c1e9', '#a9cce3', '#a9cce3', '#2874a6'
                 ],
                 borderWidth: 1
             }]
@@ -445,7 +679,7 @@ window.addEventListener('load', function() {
             datasets: [{
                 data: testData.iisCpuAvg,
                 backgroundColor: [
-                    '#27ae60', '#58d68d', '#82e0aa', '#a9dfbf', '#1e8449'
+                    '#27ae60', '#58d68d', '#82e0aa', '#a9dfbf', '#a9dfbf', '#1e8449'
                 ],
                 borderWidth: 1
             }]
@@ -456,19 +690,19 @@ window.addEventListener('load', function() {
     new Chart(document.getElementById('iisMemoryChart'), {
         type: 'bar',
         data: {
-            labels: testData.users,
+            labels: testData.iisMemoryAvg,
             datasets: [{
                 data: testData.iisMemoryAvg,
                 backgroundColor: [
-                    '#8e44ad', '#a569bd', '#bb8fce', '#d2b4de', '#6c3483'
+                    '#8e44ad', '#a569bd', '#bb8fce', '#d2b4de', '#d2b4de', '#6c3483'
                 ],
                 borderWidth: 1
             }]
         },
         options: resourceConfig
     });
-
-    console.log('📊 Gráficos consolidados cargados!');
+    
+    console.log('📊 Gráficos consolidados cargados exitosamente!');
 });
 
 // Función de navegación para SharePoint
@@ -476,6 +710,7 @@ function goBack() {
     if (window.history.length > 1) {
         window.history.back();
     } else {
+        // Regresa al index.html principal
         window.location.href = '../index.html';
     }
 }
@@ -486,6 +721,68 @@ document.addEventListener('keydown', function(event) {
         goBack();
     }
 });
+
+// Función para descargar como PDF
+function downloadPDF() {
+    const originalTitle = document.title;
+    document.title = 'Reporte_BBVA_Consolidado_Completo_' + new Date().toISOString().split('T')[0];
+    
+    // Ocultar elementos que no queremos en el PDF
+    const elementsToHide = document.querySelectorAll('.nav-header, header, nav');
+    elementsToHide.forEach(el => el.style.display = 'none');
+    
+    // Configurar para impresión óptima
+    const originalStyles = {
+        fontSize: document.body.style.fontSize,
+        background: document.body.style.background,
+        margin: document.body.style.margin,
+        padding: document.body.style.padding
+    };
+    
+    // Optimizar estilos para PDF
+    document.body.style.fontSize = '9px';
+    document.body.style.background = 'white';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    
+    // Agregar configuración de página para ocultar URLs
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @media print {
+            @page { 
+                margin: 0.5in; 
+                size: A4;
+            }
+            .nav-header, header, nav { 
+                display: none !important; 
+            }
+            body { 
+                -webkit-print-color-adjust: exact; 
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Dar un momento para que se apliquen los estilos
+    setTimeout(() => {
+        window.print();
+        
+        // Restaurar estilos originales después de imprimir
+        setTimeout(() => {
+            document.title = originalTitle;
+            document.body.style.fontSize = originalStyles.fontSize;
+            document.body.style.background = originalStyles.background;
+            document.body.style.margin = originalStyles.margin;
+            document.body.style.padding = originalStyles.padding;
+            
+            // Mostrar elementos ocultos
+            elementsToHide.forEach(el => el.style.display = '');
+            
+            // Remover el estilo agregado
+            document.head.removeChild(style);
+        }, 1000);
+    }, 100);
+}
 </script>
 </body>
 </html>
