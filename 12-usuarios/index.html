@@ -52,57 +52,46 @@
         .back-btn:active{transform:translateY(0)}
         .page-title{color:#2c3e50;font-size:14px;font-weight:bold;margin:0}
         
-        /* SOLUCIÓN 1: Header PDF con logo texto (fallback) */
-        .pdf-header-text {
+        /* Logo pequeño en esquina superior izquierda */
+        .pdf-logo {
             display: none;
-            background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            border-radius: 6px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
         }
         
-        .pdf-header-text h1 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            padding: 0;
-        }
-        
-        .pdf-header-text p {
-            margin: 5px 0 0 0;
-            font-size: 12px;
-            opacity: 0.9;
-        }
-        
-        /* SOLUCIÓN 2: Header con imagen mejorado */
-        .pdf-header-image-container {
-            display: none;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 5px 0;
-            border-bottom: 2px solid #1a237e;
-            background: #1a237e;
-            overflow: hidden;
-        }
-        
-        .pdf-header-image {
-            max-width: 100%;
-            height: 50px;
+        .pdf-logo img {
+            max-width: 200px;
+            max-height: 40px;
             object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            background: transparent;
+            background: white;
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Fallback logo con texto */
+        .pdf-logo-text {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #1a237e;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         /* Estilos para impresión/PDF */
         @media print {
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
-            .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important;padding-top:60px!important}
+            .container{box-shadow:none!important;max-width:100%!important;padding:10px!important;margin:0!important;position:relative}
             .chart-box{height:180px!important;page-break-inside:avoid!important}
             .chart-box canvas{max-height:130px!important}
             .results-table{page-break-inside:avoid!important}
@@ -112,8 +101,9 @@
             .chart-container-three{page-break-inside:avoid!important}
             .analysis-section{page-break-inside:avoid!important}
             
-            /* Mostrar header de imagen para PDF */
-            .pdf-header-image-container{display:block!important}
+            /* Mostrar logo pequeño para PDF */
+            .pdf-logo{display:block!important}
+            .pdf-logo-text{display:block!important}
             
             /* Ocultar URLs del navegador */
             @page {
@@ -134,15 +124,16 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header con imagen ACF Technologies -->
-        <div class="pdf-header-image-container">
+        <!-- Logo ACF en esquina superior izquierda (solo PDF) -->
+        <div class="pdf-logo">
             <img src="https://github.com/michaelherreraacftech/TESTBBVA002/raw/main/assets/images/header-acfv2.png" 
-                 alt="ACF Technologies - Product Quality Assurance" 
-                 class="pdf-header-image"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div style="display:none; color:white; padding:10px 0; font-weight:bold; font-size:16px;">
-                ACF Technologies - Product Quality Assurance
-            </div>
+                 alt="ACF Technologies"
+                 onerror="this.parentElement.style.display='none';">
+        </div>
+        
+        <!-- Fallback: Logo de texto si la imagen no carga -->
+        <div class="pdf-logo-text">
+            ACF Technologies - PQA
         </div>
         
         <!-- Header de navegación (solo web) -->
